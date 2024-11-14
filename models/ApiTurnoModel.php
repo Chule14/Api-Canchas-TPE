@@ -1,7 +1,5 @@
-<?php
-
-class ApiCanchaModel
-{
+<?php 
+class ApiTurnoModel{
     private $PDO;
 
     public function __construct()
@@ -13,23 +11,22 @@ class ApiCanchaModel
 
     public function getAll()
     {
-        $query = $this->PDO->prepare("SELECT * FROM canchas");
+        $query = $this->PDO->prepare("SELECT * FROM turnos");
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
-
     public function getById($id)
     {
-        $query = $this->PDO->prepare("SELECT * FROM canchas WHERE id_cancha = ?");
+        $query = $this->PDO->prepare("SELECT * FROM turnos WHERE id_turno = ?");
         $query->execute([$id]);
         return $query->fetch(PDO::FETCH_OBJ);
     }
 
-    public function createCancha($tipo_cesped, $precio, $imagen, $techada){
-        $query = $this->PDO->prepare("INSERT INTO canchas ( tipo_cesped, imagen, precio, techada) VALUES (?,?,?,?)");
-        $query->execute([$tipo_cesped, $imagen,  $precio,  $techada]);
-        return $this->PDO->lastInsertId();
-
+    public function getByCancha($id_cancha){
+        $query = $this->PDO->prepare("SELECT * FROM turnos WHERE id_cancha = ?");
+        $query->execute([$id_cancha]);
+        return $query->fetchAll(PDO::FETCH_OBJ);
 
     }
+
 }
