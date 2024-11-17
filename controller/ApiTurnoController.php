@@ -43,5 +43,23 @@ class ApiTurnoController
 
     }
 
-    
+    public function createTurno ($req, $res){
+        $cancha = $req->body->cancha;
+        $fecha = $req->body->fecha;
+        $horario=$req->body->horario;
+        $estado =$req->body->estado;
+
+        if (empty($cancha) || empty($fecha) || empty($horario) || empty($estado)){
+            $this->view->response("faltan datos para crear el turno", 404);}
+        else{
+            $newTurno= $this->model->createTurno($cancha, $fecha, $horario, $estado);
+            if(!empty($newCancha)){
+            $this->view->response("el turno fue creada con exito", 201);
+            }else{
+            $this->view->response("el turno no se pudo crear", 404);
+            }
+        }
+
+    }
+
 }

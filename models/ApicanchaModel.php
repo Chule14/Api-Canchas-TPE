@@ -29,7 +29,17 @@ class ApiCanchaModel
         $query = $this->PDO->prepare("INSERT INTO canchas ( tipo_cesped, imagen, precio, techada) VALUES (?,?,?,?)");
         $query->execute([$tipo_cesped, $imagen,  $precio,  $techada]);
         return $this->PDO->lastInsertId();
+    }
 
+    public function getAllSortedByPrecio(){
+        $query = $this->PDO->prepare("SELECT * FROM canchas ORDER BY precio ASC");
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
 
+    public function editarCancha($id, $tipo_cesped,  $precio, $techada)
+    {
+        $query = $this->PDO->prepare("UPDATE canchas SET tipo_cesped=?,techada=?,precio=? WHERE  id_cancha = ?");
+        $query->execute([$tipo_cesped, $techada,  $precio, $id]);
     }
 }

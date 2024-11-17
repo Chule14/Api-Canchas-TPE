@@ -29,4 +29,11 @@ class ApiTurnoModel{
 
     }
 
+    public function createTurno($cancha, $fecha, $horario, $estado){
+        $query = $this->PDO->prepare("INSERT INTO turnos ( id_cancha, fecha, hora, estado) VALUES (?,?,?,?)");
+        $query->execute([$cancha, $fecha, $horario,  $estado]);
+        return $this->PDO->lastInsertId();
+
+    }
+
 }
